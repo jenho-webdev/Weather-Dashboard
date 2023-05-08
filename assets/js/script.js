@@ -3,7 +3,7 @@ const input = document.querySelector("#city-state-contry-input");
 const resultsDiv = document.querySelector("#weather-results-list");
 //OpenWeatherMap API key
 const API_KEY = "4ddc74c28b222b79bd2f398b302daadb"; 
-
+const excludePart = "minutely,hourly,alerts";
 
 form.addEventListener('submit', async (e) =>
 {
@@ -19,11 +19,17 @@ form.addEventListener('submit', async (e) =>
    const lon = geoData[0].lon;
    const stateName = geoData[0].state;
    
-   const weatherAPIurl = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`);
+   const weatherAPIurl = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=${excludePart}&appid={API key}&units=imperial`);
    const weatherData = await weatherAPIurl.json();
    
    if (weatherData.cod = 200) 
-   {
+   {  
+      let currentTemp = weatherData.current.temp;
+      let currentWind = weatherData.current.wind_speed;
+      let currentHumidity = weatherData.current.humidity;
+      let iconCode =  weatherData.current.weather.icon;
+      var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+
       // Display weather data in the resultsDiv element
       resultsDiv.innerHTML = " ";
 
