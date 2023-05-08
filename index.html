@@ -13,30 +13,33 @@
 <body class="container-fluid">
     <!--  Nav top with Logo and search bar-->
 <div class="row">   
-    <nav class="d-flex col navbar navbar-dark bg-dark flex-md-nowrap p-lg-2 shadow w-100">
-        <div class="col-3">
-        <a class="navbar-brand col-sm-3 col-md-2 text-center" style="width: 280px;" href="#">Weather Lens</a>
-        </div>
+    <!-- <nav class=" d-flex col navbar navbar-dark bg-dark flex-md-nowrap p-lg-2 shadow w-100"> -->
+    <nav class="navbar navbar-top fixed-top justify-content-between">
+        <!-- Site Logo -->
+        <logo id="logo" class="text-white h3 col-2">Weather Lens</logo>
+        <!-- search bar -->
         <form class="d-flex flex-grow-1" id="search-form">
-            <label class="text-white me-2 text-nowrap mx-2 my-2">Search for a City: </label>
-            <input id="city-state-contry-input" class="form-control form-control-dark" type="text" placeholder='Search for a City(Example: "City name, State code,Country code")' aria-label="Search">
-            <button type="btn btn-light btn-primary " type="submit button">Search</button>
+        <label class="text-white me-2 text-nowrap mx-2 my-2 h6 col-1">Search for a City: </label>
+        <input id="city-state-contry-input" class="form-control form-control-dark w-50" type="text" placeholder='Search for a City(Example: "City name, State code,Country code")' aria-label="Search">
+        <button class="btn btn-outline-dark btn-primary" type="submit button">Search</button>
         </form>
+        <!-- extra el in nav goes below here -->
     </nav>
 </div>
+
 <!-- Side Bar -->
     <!-- do a side bar on left and main content window on the right -->
-<div class = "row">
-    <div class="d-flex flex-column col-3 flex-shrink-0 p-3 text-white bg-dark">
-        <p class="text-white mb-0"> Search History</p>
+<div class = "row navbar-side">
+    <div class="d-flex flex-column col-2 flex-shrink-0 p-2 text-white bg-dark text-md-start">
+        <p class="text-white mb-0 h5 "> Search History</p>
         <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-0">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                    <a href="#" class="nav-link text-white" aria-current="page">
                         <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href=""></use>
+                                <use xlink:href=""></use>
                         </svg>
-                        City 1
+                    City 1
                     </a>
                 </li>
                 <li>
@@ -44,23 +47,26 @@
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#speedometer2"></use>
                         </svg>
-                        City 2
+                    City 2
                     </a>
                 </li>
             </ul>    
     </div>
-
+</div>
+<div class="content">
     <!-- weather result dashboard -->
     <div class="col-9" id="weather-results">
-        <h3 class="row" >5-Day Forecast</h3>
-            <ul class="col w-100">
-                <li class= "col">test 1 </li>
-                <li class="col">test 1 </li>
-                <li class="col">test 1 </li>
-            </ul>
+        <h3 class="row">5-Day Forecast</h3>
+        <ul class="col w-100">
+            <li class="col">test 1 </li>
+            <li class="col">test 1 </li>
+            <li class="col">test 1 </li>
+        </ul>
     </div>
+    
 
 </div>
+
 <!-- footer with socal media icons to link to my LinkdedIn and Github profiles. -->
     <footer class="rowq bg-light text-center text-white">
         <!-- Text in footer -->
