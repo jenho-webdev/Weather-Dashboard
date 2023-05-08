@@ -1,6 +1,6 @@
 const form = document.querySelector("#search-form");
 const input = document.querySelector("#city-state-contry-input");
-const resultsDiv = document.querySelector("#weather-results");
+const resultsDiv = document.querySelector("#weather-results-list");
 //OpenWeatherMap API key
 const API_KEY = "4ddc74c28b222b79bd2f398b302daadb"; 
 
@@ -26,7 +26,8 @@ form.addEventListener('submit', async (e) =>
    {
       // Display weather data in the resultsDiv element
       resultsDiv.innerHTML = " ";
-      <h2>${weatherData.city.name} 5-day weather forecast</h2>
+
+      //<h3>${weatherData.city.name} 5-day weather forecast</h3>
    } 
    else 
    {

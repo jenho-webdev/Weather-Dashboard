@@ -1,18 +1,19 @@
 :root
 {
-    --ct-logo-height: 22px;
+    /* --ct-logo-height: 22px; */
     --ct-leftbar-width: 260px;
     --navbar-top-bg-color: #141824;
     --navbar-top-height: 4rem;
     --navbar-top-border-color: #31374a;
     --navbar-link-color: #85a9ff;
     --navbar-link-hover-color: #3874ff;
+   
 }
-,
-*::before,
+
+/* *::before,
 *::after {
     box-sizing: border-box;
-}
+} */
 
 .navbar-top 
 {
@@ -32,11 +33,9 @@
     z-index: 1020;
     top: var(--navbar-top-height);
     padding: 0;
-    width: 100vw;
-    background: var(--navbar-vertical-bg-color);
-
-
-
+    width: var(--ct-leftbar-width);
+    height: -webkit-fill-available;
+    
 }
 .content
 {
@@ -44,5 +43,5 @@
     padding: calc(var(--navbar-top-height) + 2rem) 1.5rem 6.375rem 1.5rem;
     position: relative;
     padding-bottom: 6rem;
-
+    margin-left: var(--ct-leftbar-width);
 }

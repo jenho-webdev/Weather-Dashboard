@@ -29,8 +29,8 @@
 
 <!-- Side Bar -->
     <!-- do a side bar on left and main content window on the right -->
-<div class = "row navbar-side">
-    <div class="d-flex flex-column col-2 flex-shrink-0 p-2 text-white bg-dark text-md-start">
+<div class = "row navbar-side bg-dark">
+    <div class="d-flex flex-column w-100 flex-shrink-0 p-2 text-white text-md-start">
         <p class="text-white mb-0 h5 "> Search History</p>
         <hr>
             <ul class="nav nav-pills flex-column mb-0">
@@ -54,36 +54,21 @@
     </div>
 </div>
 <div class="content">
-    <!-- weather result dashboard -->
-    <div class="col-9" id="weather-results">
-        <h3 class="row">5-Day Forecast</h3>
-        <ul class="col w-100">
-            <li class="col">test 1 </li>
-            <li class="col">test 1 </li>
-            <li class="col">test 1 </li>
-        </ul>
-    </div>
-    
-
-</div>
-
-<!-- footer with socal media icons to link to my LinkdedIn and Github profiles. -->
-    <footer class="rowq bg-light text-center text-white">
-        <!-- Text in footer -->
-        <span class="text-black-50">Contact Me@</span>
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-                <!-- Linkedin -->
-                <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;"
-                    href="https://www.linkedin.com/in/jen-ho-dev/" role="button"><i class="fab fa-linkedin-in"></i></a>
-                <!-- Github -->
-                <a class="btn text-white btn-floating m-1" style="background-color: #333333;"
-                    href="https://github.com/jenho-webdev/" role="button"><i class="fab fa-github"></i></a>
-            </section>
+    <!--context box 1: Top Full Width: Current Weather -->
+    <div class="row" id="weather-results">
+        <div class="row" id="current-weather">
+                <span class="row boarder boarder-info text-white h3 bg-black">Current Weather: </span>
         </div>
-    </footer>
+        <span class="text-black h3 p-0">5-Day Forecast:</span>
+        <div class="row boarder-1 justify-content-between w-100" id="5-day-weather">
+            <div class="col-2 card bg-dark bg-gradient">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>                    
+        </div>
+            
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
