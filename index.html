@@ -13,30 +13,33 @@
 <body class="container-fluid">
     <!--  Nav top with Logo and search bar-->
 <div class="row">   
-    <nav class="d-flex col navbar navbar-dark bg-dark flex-md-nowrap p-lg-2 shadow w-100">
-        <div class="col-3">
-        <a class="navbar-brand col-sm-3 col-md-2 text-center" style="width: 280px;" href="#">Weather Lens</a>
-        </div>
+    <!-- <nav class=" d-flex col navbar navbar-dark bg-dark flex-md-nowrap p-lg-2 shadow w-100"> -->
+    <nav class="navbar navbar-top fixed-top justify-content-between">
+        <!-- Site Logo -->
+        <logo id="logo" class="text-white h3 col-2">Weather Lens</logo>
+        <!-- search bar -->
         <form class="d-flex flex-grow-1" id="search-form">
-            <label class="text-white me-2 text-nowrap mx-2 my-2">Search for a City: </label>
-            <input id="city-state-contry-input" class="form-control form-control-dark" type="text" placeholder='Search for a City(Example: "City name, State code,Country code")' aria-label="Search">
-            <button type="btn btn-light btn-primary " type="submit button">Search</button>
+        <label class="text-white me-2 text-nowrap mx-2 my-2 h6 col-1">Search for a City: </label>
+        <input id="city-state-contry-input" class="form-control form-control-dark w-50" type="text" placeholder='Search for a City(Example: "City name, State code,Country code")' aria-label="Search">
+        <button class="btn btn-outline-dark btn-primary" type="submit button">Search</button>
         </form>
+        <!-- extra el in nav goes below here -->
     </nav>
 </div>
+
 <!-- Side Bar -->
     <!-- do a side bar on left and main content window on the right -->
-<div class = "row">
-    <div class="d-flex flex-column col-3 flex-shrink-0 p-3 text-white bg-dark">
-        <p class="text-white mb-0"> Search History</p>
+<div class = "row navbar-side bg-dark">
+    <div class="d-flex flex-column w-100 flex-shrink-0 p-2 text-white text-md-start">
+        <p class="text-white mb-0 h5 "> Search History</p>
         <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-0">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                    <a href="#" class="nav-link text-white" aria-current="page">
                         <svg class="bi me-2" width="16" height="16">
-                            <use xlink:href=""></use>
+                                <use xlink:href=""></use>
                         </svg>
-                        City 1
+                    City 1
                     </a>
                 </li>
                 <li>
@@ -44,35 +47,61 @@
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#speedometer2"></use>
                         </svg>
-                        City 2
+                    City 2
                     </a>
                 </li>
             </ul>    
     </div>
-
-    <!-- weather result dashboard -->
-    <div class="col-9" id="weather-results">
-        
+</div>
+<div class="content container mt-5">
+    <!--context box 1: Top Full Width: Current Weather -->
+    <div class="row" id="weather-results">
+        <div class="col-md-10 offset-md-3" id="current-weather">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="col-4 row w-100">
+                        <span id="city-date">
+                            Tustin current Weather (mm/dd/yyyy)
+                            <img class="col-auto" id="weather-icon" alt="" src="https://openweathermap.org/img/wn/10n.png">
+                        </span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="">
+                        <li id="c-temp"></li>
+                        <li id="c-wind"></li>
+                        <li id="c-hum"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- content box 2: 5days weather cards in a row -->
+        <span class="text-black h3 p-0 text-center align-content-center">5-Day Forecast:</span>
+        <div class="row boarder-1 justify-content-between w-100" id="5-day-weather">
+            <div class="col-2 card bg-dark bg-gradient" id="day1">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day2">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day3">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day4">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day5">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+        </div>
+            
     </div>
 
-</div>
-<!-- footer with socal media icons to link to my LinkdedIn and Github profiles. -->
-    <footer class="rowq bg-light text-center text-white">
-        <!-- Text in footer -->
-        <span class="text-black-50">Contact Me@</span>
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-                <!-- Linkedin -->
-                <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;"
-                    href="https://www.linkedin.com/in/jen-ho-dev/" role="button"><i class="fab fa-linkedin-in"></i></a>
-                <!-- Github -->
-                <a class="btn text-white btn-floating m-1" style="background-color: #333333;"
-                    href="https://github.com/jenho-webdev/" role="button"><i class="fab fa-github"></i></a>
-            </section>
-        </div>
-    </footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>

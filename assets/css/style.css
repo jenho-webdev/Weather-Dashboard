@@ -1,5 +1,47 @@
-*,
-*::before,
+:root
+{
+    /* --ct-logo-height: 22px; */
+    --ct-leftbar-width: 260px;
+    --navbar-top-bg-color: #141824;
+    --navbar-top-height: 4rem;
+    --navbar-top-border-color: #31374a;
+    --navbar-link-color: #85a9ff;
+    --navbar-link-hover-color: #3874ff;
+   
+}
+
+/* *::before,
 *::after {
     box-sizing: border-box;
+} */
+
+.navbar-top 
+{
+    font-size: .8rem;
+    font-weight: 600;
+    padding: 0;
+    background: var(--navbar-top-bg-color);
+    min-height: var(--navbar-top-height);
+    color: var(--nav-link-color);
+    padding: 0 1.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--navbar-top-border-color);
+}
+.navbar-side
+{   
+    position: fixed;
+    display: inline-block;
+    z-index: 1020;
+    top: var(--navbar-top-height);
+    padding: 0;
+    width: var(--ct-leftbar-width);
+    height: -webkit-fill-available;
+    
+}
+.content
+{
+    min-height: 100vh;
+    padding: calc(var(--navbar-top-height) + 2rem) 1.5rem 6.375rem 1.5rem;
+    position: relative;
+    padding-bottom: 6rem;
+    margin-left: var(--ct-leftbar-width);
 }
