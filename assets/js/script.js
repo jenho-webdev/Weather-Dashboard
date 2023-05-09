@@ -43,14 +43,17 @@ form.addEventListener('submit', async (e) =>
 
      let iconUrl = "http://openweathermap.org/img/wn/" + currentIconCode + ".png";
      let cwcHeader = resultsDiv.getElementById("city_date");
-     let headerText = "${city} (${today})";
+     let headerText = document.createTextNode("${city}(${today}) ");
 
      // Reset resultsDiv element
-     cwcHeader.innerHTML = "${city} ${weatherData.";
+     cwcHeader.appand(headerText);
      // Create an image element for the weather icon
-     const icon = document.createElement("img");
-     icon.src = iconUrl;
+     let weatherIcon = document.getElementById("weather-icon");
+     weatherIcon.src = "iconUrl";
      
+     let todayWeatherList = resultsDiv.getElementById("today-weather");
+     todayWeatherList.innerHTML("<li>Current Temp:${currentTemp}</li><li>Current Wind Speed:${current}</li><li>Current Humidity: ${hcurrentHumidity}</li>");
+      
    } 
    else 
    {

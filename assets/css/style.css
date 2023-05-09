@@ -14,7 +14,10 @@
 *::after {
     box-sizing: border-box;
 } */
+li {
 
+    list-style: none;
+};
 .navbar-top 
 {
     font-size: .8rem;
