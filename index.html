@@ -53,18 +53,51 @@
             </ul>    
     </div>
 </div>
-<div class="content">
+<div class="content container mt-5">
     <!--context box 1: Top Full Width: Current Weather -->
     <div class="row" id="weather-results">
-        <div class="row" id="current-weather">
-                <span class="row boarder boarder-info text-white h3 bg-black">Current Weather: </span>
+        <div class="col-md-10 offset-md-3" id="current-weather">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="col-4 row w-100">
+                        <span id="city-date">
+                            Tustin current Weather (mm/dd/yyyy)
+                            <img class="col-auto" id="weather-icon" alt="" src="https://openweathermap.org/img/wn/10n.png">
+                        </span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="">
+                        <li id="c-temp"></li>
+                        <li id="c-wind"></li>
+                        <li id="c-hum"></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <span class="text-black h3 p-0">5-Day Forecast:</span>
+        <!-- content box 2: 5days weather cards in a row -->
+        <span class="text-black h3 p-0 text-center align-content-center">5-Day Forecast:</span>
         <div class="row boarder-1 justify-content-between w-100" id="5-day-weather">
-            <div class="col-2 card bg-dark bg-gradient">
+            <div class="col-2 card bg-dark bg-gradient" id="day1">
                 <div class="card-header text-white h4">test test</div>
                 <div class="card-body"></div>
-            </div>                    
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day2">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day3">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day4">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
+            <div class="col-2 card bg-dark bg-gradient" id="day5">
+                <div class="card-header text-white h4">test test</div>
+                <div class="card-body"></div>
+            </div>
         </div>
             
     </div>
