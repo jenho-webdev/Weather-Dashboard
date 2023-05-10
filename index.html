@@ -19,9 +19,9 @@
         <logo id="logo" class="text-white h3 col-2">Weather Lens</logo>
         <!-- search bar -->
         <form class="d-flex flex-grow-1" id="search-form">
-        <label class="text-white me-2 text-nowrap mx-2 my-2 h6 col-1">Search for a City: </label>
-        <input id="city-state-contry-input" class="form-control form-control-dark w-50" type="text" placeholder='Search for a City(Example: "City name, State code,Country code")' aria-label="Search">
-        <button class="btn btn-outline-dark btn-primary" type="submit button">Search</button>
+        <span class="text-white me-2 text-nowrap mx-2 my-2 h6 col-1.5 ">Search for a City: </span>
+        <input id="city-state-contry-input" class="form-control form-control-dark w-50" type="text" placeholder='Search for a City (Example: "Irvine,CA,USA")' aria-label="Search">
+        <button class="btn btn-dark" type="submit button">Search</button>
         </form>
         <!-- extra el in nav goes below here -->
     </nav>
@@ -53,50 +53,31 @@
             </ul>    
     </div>
 </div>
-<div class="content container mt-5">
+
+<div class="content mt-2">
     <!--context box 1: Top Full Width: Current Weather -->
     <div class="row" id="weather-results">
-        <div class="col-md-10 offset-md-3" id="current-weather">
+        <div class="col-md-10 offset-md-0">
+            <h3 class="pb-2"> Current Weather</h3>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="col-4 row w-100">
-                        <span id="city-date">
-                            <img class="col-auto" id="weather-icon" alt="" src="https://openweathermap.org/img/wn/10n.png">
-                        </span>
-                    </h4>
+                    <div class="row justify-content-between">
+                        <h4 class="col-6 row" id="city-date"></h4>
+                        <img class="col-auto" id="currentWeatherIcon" alt="" src="#">
+                    </div>
                 </div>
                 <div class="card-body">
-                    <ul class="" id="today-weather">
-                    
-                    </ul>
+                    <p class="card-text" id="temp"></p>
+                    <p class="card-text" id="wind"></p>
+                    <p class="card-text" id="humidity"></p>
                 </div>
             </div>
         </div>
         <!-- content box 2: 5days weather cards in a row -->
-        <span class="text-black h3 p-0 text-center align-content-center">5-Day Forecast:</span>
+        <h3 class="pt-5">5-Day Forecast:</h3>
         <div class="row boarder-1 justify-content-between w-100" id="5-day-weather">
-            <div class="col-2 card bg-dark bg-gradient" id="day1">
-                <div class="card-header text-white h4">test test</div>
-                <div class="card-body"></div>
-            </div>
-            <div class="col-2 card bg-dark bg-gradient" id="day2">
-                <div class="card-header text-white h4">test test</div>
-                <div class="card-body"></div>
-            </div>
-            <div class="col-2 card bg-dark bg-gradient" id="day3">
-                <div class="card-header text-white h4">test test</div>
-                <div class="card-body"></div>
-            </div>
-            <div class="col-2 card bg-dark bg-gradient" id="day4">
-                <div class="card-header text-white h4">test test</div>
-                <div class="card-body"></div>
-            </div>
-            <div class="col-2 card bg-dark bg-gradient" id="day5">
-                <div class="card-header text-white h4">test test</div>
-                <div class="card-body"></div>
-            </div>
+            <div class="card-deck"></div>            
         </div>
-            
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

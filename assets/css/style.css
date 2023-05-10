@@ -12,12 +12,14 @@
 
 /* *::before,
 *::after {
-    box-sizing: border-box;
-} */
-li {
+    box-sizing: border-box; */
+}
+
+#today-weather li {
 
     list-style: none;
-};
+}
+
 .navbar-top 
 {
     font-size: .8rem;
