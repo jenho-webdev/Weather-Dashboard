@@ -12,8 +12,13 @@
 
 /* *::before,
 *::after {
-    box-sizing: border-box;
-} */
+    box-sizing: border-box; */
+}
+
+#today-weather li {
+
+    list-style: none;
+}
 
 .navbar-top 
 {

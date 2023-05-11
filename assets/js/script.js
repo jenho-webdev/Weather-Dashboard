@@ -1,60 +1,222 @@
+
+//DOM
 const form = document.querySelector("#search-form");
 const input = document.querySelector("#city-state-contry-input");
 const resultsDiv = document.querySelector("#weather-results");
+const searchHistory = document.getElementById("search-history");
+
 //OpenWeatherMap API key
-const API_KEY = "4ddc74c28b222b79bd2f398b302daadb"; 
+const API_KEY = "4ddc74c28b222b79bd2f398b302daadb";
 const excludePart = "minutely,hourly,alerts";
 
-form.addEventListener('submit', async (e) =>
+// Get the existing searches from local storage, or initialize it to an empty array if it doesn't exist
+let searches = JSON.parse(localStorage.getItem("searches")) || [];
+
+
+
+
+//submit button event listener
+form.addEventListener("submit", (e) => 
 {
-   e.preventDefault();
-   const userInput = input.value;
-   const city = userInput.split(",")[0];
-   const state = userInput.split(",")[1];
-   const country = userInput.split(",")[2];
-   const geoAPIurl = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${API_KEY}`);
-   console.log("goeAPIurl");
-   const geoData = await geoAPIurl.json(); 
-   const lat = geoData[0].lat;
-   const lon = geoData[0].lon;
-   const stateName = geoData[0].state;
-   
-   // const weatherAPIurl = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=${excludePart}&appid={API key}&units=imperial`);
-    const weatherAPIurl = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`);
-   const weatherData = await weatherAPIurl.json();
-   
-   if (weatherData.cod = 200) 
-   {
-     // Grab all days weather in list
-     let day0 = weatherData.list[0]; //current weather
-     let day1 = weatherData.list[5]; //Day 1
-     let day2 = weatherData.list[13]; //Day 2
-     let day3 = weatherData.list[21]; //Day 3
-     let day4 = weatherData.list[29]; //Day 4
-     let day5 = weatherData.list[37]; //Day 5
-     var weeklyWeathers = { day1, day2, day3, day4, day5 };
+  e.preventDefault();
+  const userInput = input.value;
+  const cityInput = userInput.split(",")[0];
+  const stateInput = userInput.split(",")[1];
+  const countryInput = userInput.split(",")[2];
 
-     //list item [0] in the respond for current weather
-     let today = dayjs(day0.dt_txt).format("MM/DD/YYYY");
-     let currentTemp = day0.main.temp;
-     let currentWind = day0.wind.speed;
-     let currentHumidity = day0.main.humidity;
-     let currentIconCode = day0.weather.icon;
+  // Check if the city already exists in the stored data
+  const existingCity = searches.find(({city}) => city === cityInput);
 
-     let iconUrl = "http://openweathermap.org/img/wn/" + currentIconCode + ".png";
-     let cwcHeader = resultsDiv.getElementById("city_date");
-     let headerText = "${city} (${today})";
+  // If the city does not exist, add a new button
+  if (!existingCity) 
+  {
+    // Create an object to store the city and state together
+    const search = {
+      city: cityInput,
+      state: stateInput,
+      country: countryInput,
+    };
 
-     // Reset resultsDiv element
-     cwcHeader.innerHTML = "${city} ${weatherData.";
-     // Create an image element for the weather icon
-     const icon = document.createElement("img");
-     icon.src = iconUrl;
-     
-   } 
-   else 
-   {
-      resultsDiv.innerHTML = "Error retrieving weather data.";
-   }
+    // Add the new search to the array of searches
+    searches.push(search);
+    // Save the updated array of searches back to local storage
+    localStorage.setItem("searches", JSON.stringify(searches));
+
+    fetchWeatherData(cityInput, stateInput, countryInput);
+  }
+  
+  else
+  {
+    fetchWeatherData(cityInput, stateInput, countryInput);
+
+  }
+    rebuildHistory();
 });
 
+
+async function fetchWeatherData(city, state,country) 
+{
+
+    const geoAPIurl = await fetch(
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${API_KEY}`
+    );
+  
+    const geoData = await geoAPIurl.json();
+    const lat = geoData[0].lat;
+    const lon = geoData[0].lon;
+    const stateName = geoData[0].state;
+    
+    const weatherForecastAPIurl = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
+    );
+    const weatherForecastData = await weatherForecastAPIurl.json();
+
+    const currentWeatherUrl = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
+    );
+    const currentWeatherData = await currentWeatherUrl.json();
+  
+  
+
+  if ((weatherForecastData.cod = 200) && (currentWeatherData.cod = 200)) 
+  {
+    //Call the function to display the weather data
+    displayWeatherData(weatherForecastData,currentWeatherData);
+
+  } else 
+  {
+    
+    resultsDiv.innerHTML = "<h3>Error retrieving weather data.</h3>";
+  }
+}
+ // Grab 5 days/3hours weather in list
+  
+  function findNext5Days(weatherForecastData) {
+    
+    const today = new Date();
+    const next5Days = weatherForecastData.list.filter((item) => {
+      const date = new Date(item.dt_txt);
+      return date > today;
+    });
+    console.log(next5Days);
+    return next5Days;
+ };
+
+function displayWeatherData(weatherForecastData,currentWeatherData)
+{
+  
+  //current weather
+  const today = dayjs().format("dddd, MMMM D, YYYY");
+  const currentTemp = currentWeatherData.main.temp;
+  const currentWind = currentWeatherData.wind.speed;
+  const currentHumidity = currentWeatherData.main.humidity;
+  const currentIconCode = currentWeatherData.weather[0].icon;
+  const TWiconUrl ="https://openweathermap.org/img/wn/" + currentIconCode + ".png";
+  
+  
+  // Create an image element for the weather icon
+  const weatherIcon = document.getElementById("currentWeatherIcon");
+  weatherIcon.setAttribute("src", TWiconUrl);
+
+  //Capitalize first letter of city and state name and output it along with the date
+  //then with the weather icon at the end of the row in the card's header
+  const cwcHeader = document.getElementById("city-date");
+  const cityName = currentWeatherData.name;
+
+  cwcHeader.textContent = `${cityName} (${today})`;
+  //Output current weather in the card's body in rows.
+  //Current Temp
+  const tempElement = document.getElementById("temp");
+  tempElement.textContent = `Temperature: ${currentTemp} °F`;
+  //Current Wind
+  const windElement = document.getElementById("wind");
+  windElement.textContent = `Wind: ${currentWind} mph`;
+  //Current Humidity
+  const humidityElement = document.getElementById("humidity");
+  humidityElement.textContent = `Humidity: ${currentHumidity}%`;
+
+
+  // display filtered weather forecast data (3hrs blocks)
+  const filteredDaysList = findNext5Days(weatherForecastData); 
+  // Get the card deck container
+  const cardDeck = document.querySelector(".card-deck");
+  
+  cardDeck.innerHTML = "";
+  // Loop through the 5-day weather info
+  for (let i = 3; i <= filteredDaysList.length; i++) 
+  {
+    // Get the weather data for this day
+    const weatherData = filteredDaysList[i];
+
+    // Create a new Bootstrap card for this day
+    const card = document.createElement("div");
+    card.className = "card";
+
+    // Create a card body
+    const cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+
+    // Add the date to the card header
+    const date = dayjs(weatherData.dt_txt).format("MM/DD/YYYY HH:mmA");
+    const cardHeader = document.createElement("h5");
+    cardHeader.className = "card-title";
+    cardHeader.textContent = date;
+    cardBody.appendChild(cardHeader);
+
+    // Add the temperature to the card
+    const temp = weatherData.main.temp;
+    const tempText = document.createElement("p");
+    const iconCode = weatherData.weather[0].icon;
+    const iconUrl = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+    tempText.className = "card-text";
+    tempText.innerHTML = `${temp}&deg;F <img src="${iconUrl}" alt="Weather Icon">`;
+    cardBody.appendChild(tempText);
+
+    // Add the wind speed to the card
+    const wind = weatherData.wind.speed;
+    const windText = document.createElement("p");
+    windText.className = "card-text";
+    windText.textContent = `Wind Speed: ${wind} MPH`;
+    cardBody.appendChild(windText);
+
+    // Add the humidity to the card
+    const humidity = weatherData.main.humidity;
+    const humidityText = document.createElement("p");
+    humidityText.className = "card-text";
+    humidityText.textContent = `Humidity: ${humidity}%`;
+    cardBody.appendChild(humidityText);
+
+    // Add the card body to the card
+    card.appendChild(cardBody);
+
+    // Add the card to the card deck
+    cardDeck.appendChild(card);
+  }
+}
+
+function rebuildHistory () {
+  // Get the search history ul element
+  
+  searchHistory.innerHTML = "";
+  // Iterate over the saved locations and create a button for each one
+  searches.forEach((location) => {
+    // Create a new city button element
+    const cityButton = document.createElement("a");
+    cityButton.classList.add("nav-link", "text-white", "city-button");
+    cityButton.textContent = location.city;
+
+    cityButton.addEventListener("click", () => {
+      displayWeatherData(location.city, location.state, location.country);
+    });
+
+
+    // Create a new li element and add the city button to it
+    const newCityLi = document.createElement("li");
+    newCityLi.classList.add("nav-item");
+    newCityLi.appendChild(cityButton);
+
+    // Add the button to the sidebar
+    document.getElementById("search-history").appendChild(newCityLi);
+
+  });
+};
