@@ -1,10 +1,16 @@
+//Since only  3hrs weather days for the next 5days and maximum of 40 counts is available for the free plan and account, this app's 
+//logic was built around the challenge that only 3hrs blocks of weather forcast response is available at time of this app's development.
+// The 3hr/5day API response isn't as straightforward as the response from calling the "Daily API" because, but "Daily API" isn't avaialble 
+//to the free non-subscription based plan/account. The response from 3hrs blocks also forcast same day weather(3hrs forward forcast at time of the API was called).
+//  Working around the 3hrs block weather respond to give only the next 5days forcast, we needed filter
+// the data set to remove any same day weather forcast before output it out to UI.
 
 //DOM
 const form = document.querySelector("#search-form");
 const input = document.querySelector("#city-state-contry-input");
 const resultsDiv = document.querySelector("#weather-results");
 const searchHistory = document.getElementById("search-history");
-
+const submitBtn = document.querySelector("#submitBtn");
 //OpenWeatherMap API key
 const API_KEY = "4ddc74c28b222b79bd2f398b302daadb";
 const excludePart = "minutely,hourly,alerts";
@@ -12,24 +18,31 @@ const excludePart = "minutely,hourly,alerts";
 // Get the existing searches from local storage, or initialize it to an empty array if it doesn't exist
 let searches = JSON.parse(localStorage.getItem("searches")) || [];
 
-
+// Call the rebuildSidebar function when the page is loaded
+window.addEventListener("load", () =>
+{
+  rebuildHistory();
+  
+});
 
 
 //submit button event listener
 form.addEventListener("submit", (e) => 
 {
   e.preventDefault();
+  // Disable the submit button
+  submitBtn.classList.add("disabled");
+
   const userInput = input.value;
   const cityInput = userInput.split(",")[0];
   const stateInput = userInput.split(",")[1];
   const countryInput = userInput.split(",")[2];
 
   // Check if the city already exists in the stored data
-  const existingCity = searches.find(({city}) => city === cityInput);
+  const existingCity = searches.find(({ city }) => city === cityInput);
 
   // If the city does not exist, add a new button
-  if (!existingCity) 
-  {
+  if (!existingCity) {
     // Create an object to store the city and state together
     const search = {
       city: cityInput,
@@ -41,16 +54,17 @@ form.addEventListener("submit", (e) =>
     searches.push(search);
     // Save the updated array of searches back to local storage
     localStorage.setItem("searches", JSON.stringify(searches));
-
-    fetchWeatherData(cityInput, stateInput, countryInput);
   }
-  
-  else
+
+  fetchWeatherData(cityInput, stateInput, countryInput).then(() => 
   {
-    fetchWeatherData(cityInput, stateInput, countryInput);
-
-  }
-    rebuildHistory();
+  submitBtn.classList.remove("disabled");
+  rebuildHistory();
+  });
+  // Re-enable the submit button after the data is fetched and displayed
+  
+  
+  
 });
 
 
@@ -104,16 +118,15 @@ async function fetchWeatherData(city, state,country)
 
 function displayWeatherData(weatherForecastData,currentWeatherData)
 {
-  
   //current weather
   const today = dayjs().format("dddd, MMMM D, YYYY");
   const currentTemp = currentWeatherData.main.temp;
   const currentWind = currentWeatherData.wind.speed;
   const currentHumidity = currentWeatherData.main.humidity;
   const currentIconCode = currentWeatherData.weather[0].icon;
-  const TWiconUrl ="https://openweathermap.org/img/wn/" + currentIconCode + ".png";
-  
-  
+  const TWiconUrl =
+    "https://openweathermap.org/img/wn/" + currentIconCode + ".png";
+
   // Create an image element for the weather icon
   const weatherIcon = document.getElementById("currentWeatherIcon");
   weatherIcon.setAttribute("src", TWiconUrl);
@@ -135,16 +148,14 @@ function displayWeatherData(weatherForecastData,currentWeatherData)
   const humidityElement = document.getElementById("humidity");
   humidityElement.textContent = `Humidity: ${currentHumidity}%`;
 
-
   // display filtered weather forecast data (3hrs blocks)
-  const filteredDaysList = findNext5Days(weatherForecastData); 
+  const filteredDaysList = findNext5Days(weatherForecastData);
   // Get the card deck container
   const cardDeck = document.querySelector(".card-deck");
-  
+
   cardDeck.innerHTML = "";
   // Loop through the 5-day weather info
-  for (let i = 3; i <= filteredDaysList.length; i++) 
-  {
+  for (let i = 3; i <= filteredDaysList.length; i++) {
     // Get the weather data for this day
     const weatherData = filteredDaysList[i];
 
@@ -192,6 +203,7 @@ function displayWeatherData(weatherForecastData,currentWeatherData)
     // Add the card to the card deck
     cardDeck.appendChild(card);
   }
+  
 }
 
 function rebuildHistory () {
@@ -206,7 +218,7 @@ function rebuildHistory () {
     cityButton.textContent = location.city;
 
     cityButton.addEventListener("click", () => {
-      displayWeatherData(location.city, location.state, location.country);
+      fetchWeatherData(location.city, location.state, location.country);
     });
 
 
