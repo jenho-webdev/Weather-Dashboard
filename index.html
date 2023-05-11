@@ -25,7 +25,7 @@
                 <span class="text-white me-2 text-nowrap mx-2 my-2 h6 col-1.5 ">Search for a City: </span>
                 <input id="city-state-contry-input" class="form-control form-control-dark w-50" type="text"
                     placeholder='Search for a City (Example: "Irvine,CA,USA")' aria-label="Search">
-                <button class="btn btn-dark" type="submit button">Search</button>
+                <button class="btn btn-dark" type="submit button" id="submitBtn">Search</button>
             </form>
             <!-- extra el in nav goes below here -->
         </nav>
@@ -34,8 +34,8 @@
     <!-- Side Bar -->
     <!-- do a side bar on left and main content window on the right -->
     <div class="row navbar-side bg-dark">
-        <div class="d-flex flex-column w-100 flex-shrink-0 p-2 text-white text-md-start">
-            <p class="text-white mb-0 h5 "> Search History</p>
+        <div class="d-flex flex-column w-100 flex-shrink-0 p-5 text-white text-md-start">
+            <p class="text-white mb-0 h6 "> Search History</p>
             <hr>
             <ul class="nav nav-pills flex-column mb-0" id="search-history"></ul>
         </div>
@@ -45,7 +45,7 @@
         <!--context box 1: Top Full Width: Current Weather -->
         <div class="row" id="weather-results">
             <div class="col-md-10 offset-md-0">
-                <h3 class="pb-2"> Current Weather</h3>
+                <h4 class="pb-2"> Current Weather</h4>
                 <div class="card">
                     <div class="card-header">
                         <div class="row justify-content-between">
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <!-- content box 2: 5days weather cards in a row -->
-            <h3 class="pt-5">5-Day Forecast:</h3>
+            <h4 class="pt-5">5-Day Forecast:</h4>
             <div class="row boarder-1 justify-content-between w-100" id="5-day-weather">
                 <div class="card-deck"></div>
             </div>
