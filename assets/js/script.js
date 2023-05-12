@@ -23,10 +23,12 @@ window.addEventListener("load", () => {
   rebuildHistory();
 });
 
-function fadeOutAlert() {
+function removeAlert() {
+
+  
   // Schedule a function to hide the message after 5 seconds
   setTimeout(() => {
-    errorMessageEl.classList.remove("show"); // Remove the 'show' class to hide the message
+    errorMessageEl.classList.add("d-none"); // Remove the 'show' class to hide the message
   }, 5000);
 }
 
@@ -76,7 +78,7 @@ async function fetchWeatherData(city, state, country) {
     errorMessageEl.textContent = errorMessage;
     errorMessageEl.classList.add("show");
     //Fade oput the alert msg after 5 sec.
-    fadeOutAlert();
+    removeAlert();
     throw new Error(errorMessage);
   }
 
@@ -202,6 +204,7 @@ function displayWeatherData(weatherForecastData, currentWeatherData) {
 
     // Add the card to the card deck
     cardDeck.appendChild(card);
+    
   }
 }
 
