@@ -1,9 +1,8 @@
-//Since only  3hrs weather days for the next 5days and maximum of 40 counts is available for the free plan and account, this app's
-//logic was built around the challenge that only 3hrs blocks of weather forcast response is available at time of this app's development.
-// The 3hr/5day API response isn't as straightforward as the response from calling the "Daily API" because, but "Daily API" isn't avaialble
-//to the free non-subscription based plan/account. The response from 3hrs blocks also forcast same day weather(3hrs forward forcast at time of the API was called).
-//  Working around the 3hrs block weather respond to give only the next 5days forcast, we needed filter
-// the data set to remove any same day weather forcast before output it out to UI.
+//Since only  3hrs weather days for the next 5days and maximum of 40 counts API with the "current weather" APIs are available to the free account, this app was built around the challenges that only 3hrs time blocks of weather forecast response is available at time of this app's development.
+// The 3hr/5day API response isn't as straightforward as the response from calling the "Daily API" because, but "Daily API" isn't available
+//to the free non-subscription based plan/account. The response from 3hrs blocks also forecast same day weather(3hrs forward forecast at time of the API was called).
+//  Working around the 3hrs block weather respond to give only the next 5days forecast, we needed filter
+// the data set to remove any same day weather forecast before output it out to UI.
 
 //DOM
 const form = document.querySelector("#search-form");
@@ -24,8 +23,6 @@ window.addEventListener("load", () => {
 });
 
 function removeAlert() {
-
-  
   // Schedule a function to hide the message after 5 seconds
   setTimeout(() => {
     errorMessageEl.classList.add("d-none"); // Remove the 'show' class to hide the message
@@ -204,7 +201,6 @@ function displayWeatherData(weatherForecastData, currentWeatherData) {
 
     // Add the card to the card deck
     cardDeck.appendChild(card);
-    
   }
 }
 

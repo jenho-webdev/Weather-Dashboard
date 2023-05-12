@@ -59,23 +59,16 @@ THEN I am again presented with current and future conditions for that city
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
+![Mockup image](./assets/images/mockup.png)
 
 # Wireframe
 
 ![wireframe picture.](./assets/images/wireframe.jpg)
 
-## Mock-Up
-
-The following animation demonstrates the application functionality:
-
-![Mockup Image](./assets/images/mockup.png)
-
 ## Roadmap
 
 - Location map
 - Weather history
-
 
 ## Contact Me
 
