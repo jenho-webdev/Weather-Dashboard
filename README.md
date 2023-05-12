@@ -79,8 +79,7 @@ The following image shows the web application's appearance and functionality:
 ## Acknowledgments
 
 - Shield and badges used in this markdown document were sourced from [Shields.io](https://shields.io/).
-- The site sound clips were provided by UCI Bootcamp Course.
-- This website was inspired by UCIBookcamp Week 4 Assignment. The user story, acceptance criteria were built ontop of the original in the UCI Bootcamp Full Stack WebDev Course.
+- This website was inspired by UCIBookcamp weekly assignments. The user story, acceptance criteria were built upon the original assignments content from the UCI Bootcamp Full Stack WebDev Course.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
