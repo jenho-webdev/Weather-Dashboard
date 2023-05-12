@@ -1,6 +1,6 @@
-//Since only  3hrs weather days for the next 5days and maximum of 40 counts is available for the free plan and account, this app's 
+//Since only  3hrs weather days for the next 5days and maximum of 40 counts is available for the free plan and account, this app's
 //logic was built around the challenge that only 3hrs blocks of weather forcast response is available at time of this app's development.
-// The 3hr/5day API response isn't as straightforward as the response from calling the "Daily API" because, but "Daily API" isn't avaialble 
+// The 3hr/5day API response isn't as straightforward as the response from calling the "Daily API" because, but "Daily API" isn't avaialble
 //to the free non-subscription based plan/account. The response from 3hrs blocks also forcast same day weather(3hrs forward forcast at time of the API was called).
 //  Working around the 3hrs block weather respond to give only the next 5days forcast, we needed filter
 // the data set to remove any same day weather forcast before output it out to UI.
@@ -19,24 +19,19 @@ const errorMessageEl = document.querySelector("#searchError");
 let searches = JSON.parse(localStorage.getItem("searches")) || [];
 
 // Call the rebuildSidebar function when the page is loaded
-window.addEventListener("load", () =>
-{
+window.addEventListener("load", () => {
   rebuildHistory();
-  
 });
 
-function fadeOutAlert()
-{
+function fadeOutAlert() {
   // Schedule a function to hide the message after 5 seconds
   setTimeout(() => {
     errorMessageEl.classList.remove("show"); // Remove the 'show' class to hide the message
   }, 5000);
-};
-
+}
 
 //submit button event listener
-form.addEventListener("submit", (e) => 
-{
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   // Disable the submit button
   submitBtn.classList.add("disabled");
@@ -63,57 +58,46 @@ form.addEventListener("submit", (e) =>
     // Save the updated array of searches back to local storage
     localStorage.setItem("searches", JSON.stringify(searches));
   }
-  
+
   fetchWeatherData(cityInput, stateInput, countryInput);
   rebuildHistory();
   // Re-enable the submit button after the data is fetched and displayed
   submitBtn.classList.remove("disabled");
 });
 
+async function fetchWeatherData(city, state, country) {
+  const geoAPIurl = await fetch(
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${API_KEY}`
+  );
 
-async function fetchWeatherData(city, state,country) 
-{
+  const geoData = await geoAPIurl.json();
+  if (geoData.length === 0) {
+    const errorMessage = `Not found. To make search more precise put the city's name, comma, 2-letter country code (ISO3166). `;
+    errorMessageEl.textContent = errorMessage;
+    errorMessageEl.classList.add("show");
+    //Fade oput the alert msg after 5 sec.
+    fadeOutAlert();
+    throw new Error(errorMessage);
+  }
 
-    const geoAPIurl = await fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${API_KEY}`
-    );
-    
-    
+  const lat = geoData[0].lat;
+  const lon = geoData[0].lon;
+  const stateName = geoData[0].state;
 
-    const geoData = await geoAPIurl.json();
-    if (geoData.length === 0) {
-      const errorMessage = `Not found. To make search more precise put the city's name, comma, 2-letter country code (ISO3166). `;
-      errorMessageEl.textContent = errorMessage;
-      errorMessageEl.classList.add("show");
-      //Fade oput the alert msg after 5 sec.
-      fadeOutAlert();
-      throw new Error(errorMessage);
-    }
+  const weatherForecastAPIurl = await fetch(
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
+  );
+  const weatherForecastData = await weatherForecastAPIurl.json();
 
+  const currentWeatherUrl = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
+  );
+  const currentWeatherData = await currentWeatherUrl.json();
 
-    const lat = geoData[0].lat;
-    const lon = geoData[0].lon;
-    const stateName = geoData[0].state;
-    
-    const weatherForecastAPIurl = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
-    );
-    const weatherForecastData = await weatherForecastAPIurl.json();
-
-    const currentWeatherUrl = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`
-    );
-    const currentWeatherData = await currentWeatherUrl.json();
-  
-  
-
-  if ((weatherForecastData.cod = 200) && (currentWeatherData.cod = 200)) 
-  {
+  if ((weatherForecastData.cod = 200) && (currentWeatherData.cod = 200)) {
     //Call the function to display the weather data
-    displayWeatherData(weatherForecastData,currentWeatherData);
-
-  } else 
-  {
+    displayWeatherData(weatherForecastData, currentWeatherData);
+  } else {
     const fatchErrorMsg = `Error retrieving weather data.`;
     errorMessageEl.textContent = fatchErrorMsg;
     errorMessageEl.classList.add("show");
@@ -121,21 +105,19 @@ async function fetchWeatherData(city, state,country)
     throw new Error(fatchErrorMsg);
   }
 }
- // Grab 5 days/3hours weather in list
-  
-  function findNext5Days(weatherForecastData) {
-    
-    const today = new Date();
-    const next5Days = weatherForecastData.list.filter((item) => {
-      const date = new Date(item.dt_txt);
-      return date > today;
-    });
-    
-    return next5Days;
- };
+// Grab 5 days/3hours weather in list
 
-function displayWeatherData(weatherForecastData,currentWeatherData)
-{
+function findNext5Days(weatherForecastData) {
+  const today = new Date();
+  const next5Days = weatherForecastData.list.filter((item) => {
+    const date = new Date(item.dt_txt);
+    return date > today;
+  });
+
+  return next5Days;
+}
+
+function displayWeatherData(weatherForecastData, currentWeatherData) {
   //current weather
   const today = dayjs().format("dddd, MMMM D, YYYY");
   const currentTemp = currentWeatherData.main.temp;
@@ -221,12 +203,11 @@ function displayWeatherData(weatherForecastData,currentWeatherData)
     // Add the card to the card deck
     cardDeck.appendChild(card);
   }
-  
 }
 
-function rebuildHistory () {
+function rebuildHistory() {
   // Get the search history ul element
-  
+
   searchHistory.innerHTML = "";
   // Iterate over the saved locations and create a button for each one
   searches.forEach((location) => {
@@ -239,7 +220,6 @@ function rebuildHistory () {
       fetchWeatherData(location.city, location.state, location.country);
     });
 
-
     // Create a new li element and add the city button to it
     const newCityLi = document.createElement("li");
     newCityLi.classList.add("nav-item,sidebar-links");
@@ -247,6 +227,5 @@ function rebuildHistory () {
 
     // Add the button to the sidebar
     document.getElementById("search-history").appendChild(newCityLi);
-
   });
-};
+}

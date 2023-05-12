@@ -1,5 +1,4 @@
-:root
-{
+:root {
     /* --ct-logo-height: 22px; */
     --ct-leftbar-width: 260px;
     --navbar-top-bg-color: #141824;
@@ -7,14 +6,14 @@
     --navbar-top-border-color: #31374a;
     --navbar-link-color: #85a9ff;
     --navbar-link-hover-color: #3874ff;
-   
+
 }
+
 .nav-pills .nav-link:hover {
     background-color: #333;
 }
 
-.navbar-top 
-{
+.navbar-top {
     font-size: .8rem;
     font-weight: 600;
     padding: 0;
@@ -24,8 +23,8 @@
     padding: 0 1.5rem 0 1.5rem;
     border-bottom: 1px solid var(--navbar-top-border-color);
 }
-.navbar-side
-{   
+
+.navbar-side {
     position: fixed;
     display: inline-block;
     z-index: 1020;
@@ -33,10 +32,10 @@
     padding: 0;
     width: var(--ct-leftbar-width);
     height: -webkit-fill-available;
-    
+
 }
-.content
-{
+
+.content {
     min-height: 100vh;
     padding: calc(var(--navbar-top-height) + 2rem) 1.5rem 6.375rem 1.5rem;
     position: relative;

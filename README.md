@@ -1,49 +1,18 @@
 # Weather-Dashboard
 
+- [Explore the docs]( https://github.com/jenho-webdev/Weather-Dashboard)
 
-- [Explore the docs]( https://github.com/jenho-webdev/quiz-me)
+- [Deployed Application](https://jenho-webdev.github.io/Weather-Dashboard)
 
-- [Deployed Application](https://jenho-webdev.github.io/quiz-me/)
+- [Report Bug](https://github.com/jenho-webdev/Weather-Dashboard/issues/)
 
-- [Report Bug](https://github.com/jenho-webdev/quiz-me/issues/)
-
-- [Request Feature](https://github.com/jenho-webdev/quiz-me/issues)
-
-<!-- TABLE OF CONTENTS -->
-
-## Table of Contents
-
-- [About The Project](#about-the-app)
-
-- [User Story](#user-story)
-
-- [Acceptance Criteria](#acceptance-criteria)
-
-- [Mock-up](#mock-up)
-
-- [Wireframe](#wireframe)
-
-- [Roadmap](#roadmap)
-
-- [Contact](#contact-me)
-
-- [Acknowledgments](#acknowledgments)
-
-
-
-- [Explore the docs]( https://github.com/jenho-webdev/quiz-me)
-
-- [Deployed Application](https://jenho-webdev.github.io/quiz-me/)
-
-- [Report Bug](https://github.com/jenho-webdev/quiz-me/issues/)
-
-- [Request Feature](https://github.com/jenho-webdev/quiz-me/issues)
+- [Request Feature](https://github.com/jenho-webdev/Weather-Dashboard/issues)
 
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
 
-- [About The Project](#about-the-app)
+- [About The Project](#about-the-project)
 
 - [User Story](#user-story)
 
@@ -61,7 +30,9 @@
 
 ## About the Project
 
-A simple weather forecast dashboard using openweather API. It allow user to retrieve weather data for cities.
+A simple weather forecast dashboard using openweather API Current Weather API and 3hours/5days max weather forcast API to give users weather forecast for the next 5 days.
+It allow user to retrieve weather data for cities with city name, state code and country code.
+
 ## User Story
 
 ```
@@ -74,7 +45,7 @@ SO THAT I can plan a trip accordingly
 
 ```
 GIVEN a weather dashboard with form inputs
-WHEN I search for a city
+WHEN I search for a city with at least city name and state code
 THEN I am presented with current and future conditions for that city and that city is added to the search history
 WHEN I view current weather conditions for that city
 THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
@@ -98,9 +69,12 @@ The following image shows the web application's appearance and functionality:
 
 The following animation demonstrates the application functionality:
 
-![''](./assets/images/demo.gif)
+![Mockup Image](./assets/images/mockup.png)
 
 ## Roadmap
+
+- Location map
+- Weather history
 
 
 ## Contact Me
