@@ -63,16 +63,11 @@ form.addEventListener("submit", (e) =>
     // Save the updated array of searches back to local storage
     localStorage.setItem("searches", JSON.stringify(searches));
   }
-
-  fetchWeatherData(cityInput, stateInput, countryInput).then(() => 
-  {
-    submitBtn.classList.remove("disabled");
-    rebuildHistory();
-  });
+  
+  fetchWeatherData(cityInput, stateInput, countryInput);
+  rebuildHistory();
   // Re-enable the submit button after the data is fetched and displayed
-  
-  
-  
+  submitBtn.classList.remove("disabled");
 });
 
 
