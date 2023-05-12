@@ -14,7 +14,7 @@ const submitBtn = document.querySelector("#submitBtn");
 //OpenWeatherMap API key
 const API_KEY = "4ddc74c28b222b79bd2f398b302daadb";
 const excludePart = "minutely,hourly,alerts";
-
+const errorMessageEl = document.querySelector("#searchError");
 // Get the existing searches from local storage, or initialize it to an empty array if it doesn't exist
 let searches = JSON.parse(localStorage.getItem("searches")) || [];
 
@@ -24,6 +24,14 @@ window.addEventListener("load", () =>
   rebuildHistory();
   
 });
+
+function fadeOutAlert()
+{
+  // Schedule a function to hide the message after 5 seconds
+  setTimeout(() => {
+    errorMessageEl.classList.remove("show"); // Remove the 'show' class to hide the message
+  }, 5000);
+};
 
 
 //submit button event listener
@@ -58,8 +66,8 @@ form.addEventListener("submit", (e) =>
 
   fetchWeatherData(cityInput, stateInput, countryInput).then(() => 
   {
-  submitBtn.classList.remove("disabled");
-  rebuildHistory();
+    submitBtn.classList.remove("disabled");
+    rebuildHistory();
   });
   // Re-enable the submit button after the data is fetched and displayed
   
@@ -74,8 +82,20 @@ async function fetchWeatherData(city, state,country)
     const geoAPIurl = await fetch(
       `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${API_KEY}`
     );
-  
+    
+    
+
     const geoData = await geoAPIurl.json();
+    if (geoData.length === 0) {
+      const errorMessage = `Not found. To make search more precise put the city's name, comma, 2-letter country code (ISO3166). `;
+      errorMessageEl.textContent = errorMessage;
+      errorMessageEl.classList.add("show");
+      //Fade oput the alert msg after 5 sec.
+      fadeOutAlert();
+      throw new Error(errorMessage);
+    }
+
+
     const lat = geoData[0].lat;
     const lon = geoData[0].lon;
     const stateName = geoData[0].state;
@@ -99,8 +119,11 @@ async function fetchWeatherData(city, state,country)
 
   } else 
   {
-    
-    resultsDiv.innerHTML = "<h3>Error retrieving weather data.</h3>";
+    const fatchErrorMsg = `Error retrieving weather data.`;
+    errorMessageEl.textContent = fatchErrorMsg;
+    errorMessageEl.classList.add("show");
+    fadeOutAlert();
+    throw new Error(fatchErrorMsg);
   }
 }
  // Grab 5 days/3hours weather in list
@@ -112,7 +135,7 @@ async function fetchWeatherData(city, state,country)
       const date = new Date(item.dt_txt);
       return date > today;
     });
-    console.log(next5Days);
+    
     return next5Days;
  };
 
@@ -224,7 +247,7 @@ function rebuildHistory () {
 
     // Create a new li element and add the city button to it
     const newCityLi = document.createElement("li");
-    newCityLi.classList.add("nav-item");
+    newCityLi.classList.add("nav-item,sidebar-links");
     newCityLi.appendChild(cityButton);
 
     // Add the button to the sidebar

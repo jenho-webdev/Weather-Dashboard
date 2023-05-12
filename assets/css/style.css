@@ -9,15 +9,8 @@
     --navbar-link-hover-color: #3874ff;
    
 }
-
-/* *::before,
-*::after {
-    box-sizing: border-box; */
-}
-
-#today-weather li {
-
-    list-style: none;
+.nav-pills .nav-link:hover {
+    background-color: #333;
 }
 
 .navbar-top 
